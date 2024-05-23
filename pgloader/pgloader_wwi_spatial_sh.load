@@ -1,6 +1,6 @@
 load database
      from mssql://user:password@XX.XX.X.XXX:1433/wideworldimporters
-     into postgresql://user:password@XX.XX.X.XXX:5432/wideworldimporters
+     into postgresql://postgres:password@XX.XX.X.XXX:5432/wideworldimporters
 with schema only, preserve index names, create indexes
 
 set PostgreSQL parameters maintenance_work_mem to '128MB', work_mem to '128MB'
