@@ -38,7 +38,7 @@ DEALLOCATE CUR;
 
 -- Создание FDT
 
-SELECT CONCAT('IMPORT FOREIGN SCHEMA','"',s.name,'" LIMIT TO (', STRING_AGG(CONCAT('"',v.name,'"'),','),')') + CHAR(13) + CHAR(10) +
+SELECT CONCAT('IMPORT FOREIGN SCHEMA',' "',s.name,'" LIMIT TO (', STRING_AGG(CONCAT('"',v.name,'"'),','),')') + CHAR(13) + CHAR(10) +
 	   CONCAT('FROM SERVER ms_wwi INTO ', LOWER(s.name), ';')
 FROM sys.views AS v INNER JOIN sys.schemas AS s ON (v.schema_id=s.schema_id)
 WHERE v.name LIKE '%[_]$view'
