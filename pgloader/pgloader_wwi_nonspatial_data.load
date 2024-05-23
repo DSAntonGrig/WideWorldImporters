@@ -1,0 +1,28 @@
+load database
+     from mssql://user:password@XX.XX.X.XXX:1433/wideworldimporters
+     into postgresql://user:password@XX.XX.X.XXX:5432/wideworldimporters
+with data only
+
+set PostgreSQL parameters maintenance_work_mem to '128MB', work_mem to '128MB'
+
+including only table names like 'DeliveryMethods','PaymentMethods','People','TransactionTypes' in schema 'Application'
+including only table names like 'PurchaseOrderLines','PurchaseOrders','SupplierCategories','SupplierTransactions' in schema 'Purchasing'
+including only table names like 'BuyingGroups','CustomerCategories','CustomerTransactions','InvoiceLines','Invoices','OrderLines','Orders','SpecialDeals' in schema 'Sales'
+including only table names like 'ColdRoomTemperatures','Colors','PackageTypes','StockGroups','StockItemHoldings','StockItems','StockItemStockGroups','StockItemTransactions','VehicleTemperatures' in schema 'Warehouse'
+
+alter schema 'Application' rename to 'application'
+alter schema 'Purchasing' rename to 'purchasing'
+alter schema 'Sales' rename to 'sales'
+alter schema 'Warehouse' rename to 'warehouse'
+
+cast type int to int drop default keep typemod,
+     type char to char keep typemod,
+     type varchar to varchar keep typemod,
+     type geography to geography keep typemod,
+     type nchar to char,
+     type nvarchar to varchar,
+     type datetime to timestamp,
+     type datetime2 to timestamp drop default,
+     type smalldatetime to date,
+     type bit to boolean,
+     type xml to text;

@@ -1,0 +1,26 @@
+load database
+     from mssql://user:password@XX.XX.X.XXX:1433/wideworldimporters
+     into postgresql://user:password@XX.XX.X.XXX:5432/wideworldimporters
+with schema only, preserve index names, create indexes
+
+set PostgreSQL parameters maintenance_work_mem to '128MB', work_mem to '128MB'
+
+including only table names like 'Cities','Countries','StateProvinces','SystemParameters' in schema 'Application'
+including only table names like 'Suppliers' in schema 'Purchasing'
+including only table names like 'Customers' in schema 'Sales'
+
+alter schema 'Application' rename to 'application'
+alter schema 'Purchasing' rename to 'purchasing'
+alter schema 'Sales' rename to 'sales'
+
+cast type int to int drop default keep typemod,
+     type char to char keep typemod,
+     type varchar to varchar keep typemod,
+     type geography to geography keep typemod,
+     type nchar to char,
+     type nvarchar to varchar,
+     type datetime to timestamp,
+     type datetime2 to timestamp drop default,
+     type smalldatetime to date,
+     type bit to boolean,
+     type xml to text;
