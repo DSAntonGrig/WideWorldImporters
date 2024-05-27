@@ -17,7 +17,7 @@ BEGIN
                     'StockItemID', si.stockitemid,
                     'StockItemName', si.stockitemname
                 ))
-               )
+               )::TEXT
     INTO json_text_result
     FROM (SELECT si.stockitemid,
                  si.stockitemname
@@ -27,7 +27,7 @@ BEGIN
           LIMIT par_maximumrowstoreturn) AS si;
 
     RETURN json_text_result;
-    END;
+END;
 $BODY$;
 
 ALTER FUNCTION website.searchforstockitems(VARCHAR(1000), INTEGER) OWNER TO postgres;
